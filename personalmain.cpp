@@ -1,5 +1,7 @@
 #include "personalmain.h"
-
+/*
+ * Class PersonalMain
+ */
 PersonalMain::PersonalMain(QApplication* qapp, QWidget *parent) : QMainWindow(parent) {
     qApplication = qapp;
     base.setDatabaseName("postgres");
