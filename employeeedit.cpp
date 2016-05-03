@@ -86,14 +86,14 @@ void EmployeeEdit::setModelMode() {
 }
 
 void EmployeeEdit::addEmpRowSlot() {
-    empModel->insertRows(0, 1);
+    empModel->insertRows(empModel->rowCount(), 1);
     for (int i = 0; i < empModel->columnCount(); i++) {
         empModel->setData(empModel->index(0, i), "");
     }
 }
 
 void EmployeeEdit::addStdRowSlot() {
-    stdModel->insertRows(0, 1);
+    stdModel->insertRows(stdModel->rowCount(), 1);
     for (int i = 0; i < stdModel->columnCount(); i++) {
         stdModel->setData(stdModel->index(0, i), "");
     }
@@ -106,7 +106,7 @@ void EmployeeEdit::delStdRowSlot() {
 }
 
 void EmployeeEdit::addEqpRowSlot() {
-    eqpModel->insertRows(0, 1);
+    eqpModel->insertRows(eqpModel->rowCount(), 1);
     for (int i = 0; i < eqpModel->columnCount(); i++) {
         eqpModel->setData(eqpModel->index(0, i), "");
     }
