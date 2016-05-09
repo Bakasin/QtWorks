@@ -25,7 +25,7 @@ private:
     void checkDatabaseConnection(QSqlDatabase* base);
 
 private slots:
-    void addRow(QString* str);
+    void addRow();
     void edtRow(QString* str);
 };
 

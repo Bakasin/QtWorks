@@ -17,12 +17,12 @@ private:
     QString* getCurrentEmployeeId();
 
 signals:
-    void addrow(QString*);
+    void addrow();
     void edtrow(QString*);
     void delrow(QString*);
 
 private slots:
-    void rowAddSlot() { emit addrow(getCurrentEmployeeId()); }
+    void rowAddSlot() { emit addrow(); }
     void rowEdtSlot() { emit edtrow(getCurrentEmployeeId()); }
     void rowDelSlot() { emit delrow(getCurrentEmployeeId()); }
 

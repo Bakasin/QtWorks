@@ -16,7 +16,7 @@ PersonalMain::PersonalMain(QApplication* qapp, QWidget *parent) : QMainWindow(pa
     relModel->select();
 
     eList = new EmployeesList(relModel, this);
-    connect(eList, SIGNAL(addrow(QString*)), SLOT(addRow(QString*)));
+    connect(eList, SIGNAL(addrow()), SLOT(addRow()));
     connect(eList, SIGNAL(edtrow(QString*)), SLOT(edtRow(QString*)));
 
 
@@ -40,8 +40,8 @@ void PersonalMain::checkDatabaseConnection(QSqlDatabase *base) {
     }
 }
 
-void PersonalMain::addRow(QString* str) {
-    EmployeeEdit* edit = new EmployeeEdit(&base, str, qtab);
+void PersonalMain::addRow() {
+    EmployeeEdit* edit = new EmployeeEdit(&base, new QString(), qtab);
     qtab->addTab(edit , "Новая запись");
     connect(edit, SIGNAL(changesCommited()), eList, SLOT(selectChanges()));
 }

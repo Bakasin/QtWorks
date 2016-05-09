@@ -13,10 +13,8 @@ public:
 private:
     QString* id;
     QSqlDatabase* dBase;
-    QSqlTableModel* empModel;
     QSqlTableModel* stdModel;
     QSqlTableModel* eqpModel;
-    QTableView* empTable;
     QTableView* stdTable;
     QTableView* eqpTable;
 
@@ -34,8 +32,6 @@ signals:
     void changesCommited();
 
 private slots:
-    void addEmpRowSlot();
-
     void addStdRowSlot();
     void delStdRowSlot();
 
