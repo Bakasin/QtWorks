@@ -22,9 +22,10 @@ signals:
     void delrow(QString*);
 
 private slots:
-    void rowAddSlot() { emit addrow(); }
-    void rowEdtSlot() { emit edtrow(getCurrentEmployeeId()); }
-    void rowDelSlot() { emit delrow(getCurrentEmployeeId()); }
+    void rowAddSlot();
+    void rowEdtSlot();
+    void rowSaveSlot();
+    void rowDelSlot();
 
 public slots:
     void selectChanges();

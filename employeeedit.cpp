@@ -32,17 +32,18 @@ EmployeeEdit::EmployeeEdit(QSqlDatabase* base, QString* employeeId, QWidget *par
     eqpModel->setHeaderData(12, Qt::Horizontal, tr("Срок"));
 
     stdTable = new QTableView(this);
-    stdTable->setEditTriggers(QAbstractItemView::DoubleClicked);
+    stdTable->setEditTriggers(QAbstractItemView::CurrentChanged);
     stdTable->setModel(stdModel);
+    stdTable->resizeColumnsToContents();
     stdTable->hideColumn(0);
     stdTable->hideColumn(1);
 
     eqpTable = new QTableView(this);
-    eqpTable->setEditTriggers(QAbstractItemView::DoubleClicked);
+    eqpTable->setEditTriggers(QAbstractItemView::CurrentChanged);
     eqpTable->setModel(eqpModel);
+    eqpTable->resizeColumnsToContents();
     eqpTable->hideColumn(0);
     eqpTable->hideColumn(1);
-
 
     setModelMode();
 
@@ -91,32 +92,22 @@ EmployeeEdit::EmployeeEdit(QSqlDatabase* base, QString* employeeId, QWidget *par
 }
 
 void EmployeeEdit::setModelMode() {
-    if (*id != "" && id != nullptr) {
-        stdModel->setFilter(QString("EMPLOYEE_ID = '%1'").arg(*id));
-        eqpModel->setFilter(QString("EMPLOYEE_ID = '%1'").arg(*id));
-        stdModel->select();
-        eqpModel->select();
-    } else {
-        addStdRowSlot();
-        addEqpRowSlot();
-    }
-}
+    stdModel->setFilter(QString("EMPLOYEE_ID = '%1'").arg(*id));
+    eqpModel->setFilter(QString("EMPLOYEE_ID = '%1'").arg(*id));
+    stdModel->select();
+    eqpModel->select();
 
-//void EmployeeEdit::addEmpRowSlot() {
-//    empModel->insertRows(empModel->rowCount(), 1);
-//    for (int i = 0; i < empModel->columnCount(); i++) {
-//        empModel->setData(empModel->index(0, i), "");
-//    }
-//}
+    if (stdModel->rowCount() == 0)
+        addStdRowSlot();
+    if (eqpModel->rowCount() == 0)
+        addEqpRowSlot();
+}
 
 void EmployeeEdit::addStdRowSlot() {
     stdModel->insertRows(stdModel->rowCount(), 1);
     QVariant qVariantId(*id);
-    if (!stdModel->setData(stdModel->index(stdModel->rowCount(), 1), qVariantId))
-        qDebug() << "Failed insert new row for standarts table!";
-    for (int i = 0; i < stdModel->columnCount(); i++) {
-        stdModel->setData(stdModel->index(0, i), "");
-    }
+    qDebug() << qVariantId;
+    stdModel->setData(stdModel->index(stdModel->rowCount() - 1, 1), qVariantId);
 }
 
 void EmployeeEdit::delStdRowSlot() {
@@ -128,11 +119,8 @@ void EmployeeEdit::delStdRowSlot() {
 void EmployeeEdit::addEqpRowSlot() {
     eqpModel->insertRows(eqpModel->rowCount(), 1);
     QVariant qVariantId(*id);
-    if (!eqpModel->setData(eqpModel->index(eqpModel->rowCount(), 1), qVariantId))
-        qDebug() << "Failed insert new row for eqipment table!";
-    for (int i = 0; i < eqpModel->columnCount(); i++) {
-        eqpModel->setData(eqpModel->index(0, i), "");
-    }
+    qDebug() << qVariantId;
+    eqpModel->setData(eqpModel->index(eqpModel->rowCount() - 1, 1), qVariantId);
 }
 
 void EmployeeEdit::delEqpRowSlot() {
@@ -142,9 +130,6 @@ void EmployeeEdit::delEqpRowSlot() {
 }
 
 void EmployeeEdit::commitChanges() {
-//    if (!empModel->submitAll()) {
-//        qDebug() << "Employee insertion fail!\n" << dBase->lastError();
-//    }
     if (!stdModel->submitAll()) {
         qDebug() << "Standarts insertion fail!\n" << dBase->lastError();
     }

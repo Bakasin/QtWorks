@@ -19,7 +19,6 @@ PersonalMain::PersonalMain(QApplication* qapp, QWidget *parent) : QMainWindow(pa
     connect(eList, SIGNAL(addrow()), SLOT(addRow()));
     connect(eList, SIGNAL(edtrow(QString*)), SLOT(edtRow(QString*)));
 
-
     qtab = new QTabWidget(this);
     qtab->addTab(eList, tr("Список работников"));
 
