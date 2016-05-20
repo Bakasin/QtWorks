@@ -34,11 +34,13 @@ EmployeesList::EmployeesList(QSqlRelationalTableModel* rModel, QWidget *parent) 
     QPushButton* edtbtn = new QPushButton(tr("Редактировать"), this);
     QPushButton* savebtn = new QPushButton(tr("Сохранить"), this);
     QPushButton* delbtn = new QPushButton(tr("Удалить"), this);
+    QPushButton* reportbtn = new QPushButton(tr("Отчет"), this);
 
     connect(addbtn, SIGNAL(clicked(bool)), SLOT(rowAddSlot()));
     connect(edtbtn, SIGNAL(clicked(bool)), SLOT(rowEdtSlot()));
     connect(savebtn, SIGNAL(clicked(bool)), SLOT(rowSaveSlot()));
     connect(delbtn, SIGNAL(clicked(bool)), SLOT(rowDelSlot()));
+    connect(reportbtn, SIGNAL(clicked(bool)), SLOT(showReport()));
 
     QVBoxLayout* qvbxmain = new QVBoxLayout(this);
     QVBoxLayout* qvbx = new QVBoxLayout(this);
@@ -48,6 +50,7 @@ EmployeesList::EmployeesList(QSqlRelationalTableModel* rModel, QWidget *parent) 
     qvbx->addWidget(edtbtn);
     qvbx->addWidget(savebtn);
     qvbx->addWidget(delbtn);
+    qvbx->addWidget(reportbtn);
 
     qhbx->addWidget(qview);
     qhbx->addLayout(qvbx);
@@ -87,4 +90,8 @@ void EmployeesList::selectChanges() {
     if (!model->select()) {
         qDebug() << model->database().lastError();
     }
+}
+
+void EmployeesList::showReport() {
+    new EmployeesReport(model->database());
 }

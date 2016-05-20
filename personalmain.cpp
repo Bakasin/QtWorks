@@ -20,6 +20,7 @@ PersonalMain::PersonalMain(QApplication* qapp, QWidget *parent) : QMainWindow(pa
     connect(eList, SIGNAL(edtrow(QString*)), SLOT(edtRow(QString*)));
 
     qtab = new QTabWidget(this);
+    qtab->setTabsClosable(true);
     qtab->addTab(eList, tr("Список работников"));
 
     QVBoxLayout* qvbx = new QVBoxLayout(this);

@@ -17,9 +17,11 @@ SOURCES += main.cpp\
         personalmain.cpp \
     failedconnectiondialog.cpp \
     employeeslist.cpp \
-    employeeedit.cpp
+    employeeedit.cpp \
+    employeesreport.cpp
 
 HEADERS  += personalmain.h \
     failedconnectiondialog.h \
     employeeslist.h \
-    employeeedit.h
+    employeeedit.h \
+    employeesreport.h

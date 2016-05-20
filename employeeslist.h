@@ -3,6 +3,7 @@
 
 #include <QtWidgets>
 #include <QtSql>
+#include "employeesreport.h"
 
 class EmployeesList : public QWidget {
     Q_OBJECT
@@ -26,6 +27,7 @@ private slots:
     void rowEdtSlot();
     void rowSaveSlot();
     void rowDelSlot();
+    void showReport();
 
 public slots:
     void selectChanges();
