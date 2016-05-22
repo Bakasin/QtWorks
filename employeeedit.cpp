@@ -21,15 +21,16 @@ EmployeeEdit::EmployeeEdit(QSqlDatabase* base, QString* employeeId, QWidget *par
     eqpModel->setHeaderData(1, Qt::Horizontal, tr("EMP_ID"));
     eqpModel->setHeaderData(2, Qt::Horizontal, tr("Наименование СИЗ"));
     eqpModel->setHeaderData(3, Qt::Horizontal, tr("ГОСТ, ОСТ, ТУ"));
-    eqpModel->setHeaderData(4, Qt::Horizontal, tr("Дата"));
-    eqpModel->setHeaderData(5, Qt::Horizontal, tr("Количество"));
-    eqpModel->setHeaderData(6, Qt::Horizontal, tr("% износа"));
-    eqpModel->setHeaderData(7, Qt::Horizontal, tr("Стоимость"));
-    eqpModel->setHeaderData(8, Qt::Horizontal, tr("Дата"));
-    eqpModel->setHeaderData(9, Qt::Horizontal, tr("Количество"));
-    eqpModel->setHeaderData(10, Qt::Horizontal, tr("% износа"));
-    eqpModel->setHeaderData(11, Qt::Horizontal, tr("Стоимость"));
-    eqpModel->setHeaderData(12, Qt::Horizontal, tr("Срок"));
+    eqpModel->setHeaderData(4, Qt::Horizontal, tr("Размер"));
+    eqpModel->setHeaderData(5, Qt::Horizontal, tr("Дата"));
+    eqpModel->setHeaderData(6, Qt::Horizontal, tr("Количество"));
+    eqpModel->setHeaderData(7, Qt::Horizontal, tr("% износа"));
+    eqpModel->setHeaderData(8, Qt::Horizontal, tr("Стоимость"));
+    eqpModel->setHeaderData(9, Qt::Horizontal, tr("Дата"));
+    eqpModel->setHeaderData(10, Qt::Horizontal, tr("Количество"));
+    eqpModel->setHeaderData(11, Qt::Horizontal, tr("% износа"));
+    eqpModel->setHeaderData(12, Qt::Horizontal, tr("Стоимость"));
+    eqpModel->setHeaderData(13, Qt::Horizontal, tr("Срок"));
 
     stdTable = new QTableView(this);
     stdTable->setEditTriggers(QAbstractItemView::CurrentChanged);

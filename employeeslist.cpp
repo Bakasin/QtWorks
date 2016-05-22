@@ -5,8 +5,8 @@ EmployeesList::EmployeesList(QSqlRelationalTableModel* rModel, QWidget *parent) 
     model->setEditStrategy(QSqlTableModel::OnManualSubmit);
     model->setHeaderData(0, Qt::Horizontal, tr("ID"));
     model->setHeaderData(1, Qt::Horizontal, tr("Фамилия"));
-    model->setHeaderData(2, Qt::Horizontal, tr("Отчество"));
-    model->setHeaderData(3, Qt::Horizontal, tr("Имя"));
+    model->setHeaderData(2, Qt::Horizontal, tr("Имя"));
+    model->setHeaderData(3, Qt::Horizontal, tr("Отчество"));
     model->setHeaderData(4, Qt::Horizontal, tr("Табельный номер"));
     model->setHeaderData(5, Qt::Horizontal, tr("Структурное подразделение"));
     model->setHeaderData(6, Qt::Horizontal, tr("Профессия"));
