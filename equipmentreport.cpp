@@ -1,8 +1,9 @@
-#include "employeesreport.h"
+#include "equipmentreport.h"
 
-EmployeesReport::EmployeesReport(QSqlDatabase dbase, QWidget *parent) : QWidget(parent), base(dbase) {
+EquipmentReport::EquipmentReport(QSqlDatabase dbase, QWidget *parent) : QWidget(parent), base(dbase) {
     qmodel = new QSqlQueryModel(this);
-    qmodel->setQuery("SELECT EMPLOYEE.LASTNAME, EMPLOYEE.FIRSTNAME, EMPLOYEE.MIDDLENAME, EQUIPMENT.EXPIRATION_DATE"
+    qmodel->setQuery("SELECT EMPLOYEE.LASTNAME, EMPLOYEE.FIRSTNAME, EMPLOYEE.MIDDLENAME,"
+                     " EMPLOYEE.SUBDIVISION, EQUIPMENT.NAME, EQUIPMENT.SIZE, EQUIPMENT.EXPIRATION_DATE"
                      " FROM EMPLOYEE JOIN EQUIPMENT ON EQUIPMENT.EMPLOYEE_ID = EMPLOYEE.ID"
                      " WHERE EQUIPMENT.EXPIRATION_DATE < CURRENT_DATE", base);
     view = new QTableView(this);

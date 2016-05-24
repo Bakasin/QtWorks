@@ -18,10 +18,14 @@ SOURCES += main.cpp\
     failedconnectiondialog.cpp \
     employeeslist.cpp \
     employeeedit.cpp \
-    employeesreport.cpp
+    washingedit.cpp \
+    equipmentreport.cpp \
+    washingreport.cpp
 
 HEADERS  += personalmain.h \
     failedconnectiondialog.h \
     employeeslist.h \
     employeeedit.h \
-    employeesreport.h
+    washingedit.h \
+    equipmentreport.h \
+    washingreport.h

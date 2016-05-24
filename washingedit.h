@@ -1,17 +1,45 @@
 #ifndef WASHINGEDIT_H
 #define WASHINGEDIT_H
 
-#include <QWidget>
+#include <QtWidgets>
+#include <QtSql>
 
-class WashingEdit : public QWidget
-{
+class WashingEdit : public QWidget {
     Q_OBJECT
+
 public:
-    explicit WashingEdit(QWidget *parent = 0);
+    explicit WashingEdit(QSqlDatabase* base, QString* employeeId, QWidget *parent = 0);
+
+private:
+    QString* id;
+    QSqlDatabase* dBase;
+    QSqlTableModel* stdModel;
+    QSqlTableModel* wshModel;
+    QTableView* stdTable;
+    QTableView* wshTable;
+
+    QPushButton* stdAddBtn;
+    QPushButton* stdDelBtn;
+    QPushButton* wshAddBtn;
+    QPushButton* wshDelBtn;
+
+    QPushButton* commit;
+    QPushButton* revert;
+
+    void setModelMode();
 
 signals:
+    void changesCommited();
 
-public slots:
+private slots:
+    void addStdRowSlot();
+    void delStdRowSlot();
+
+    void addWshRowSlot();
+    void delWshRowSlot();
+
+    void commitChanges();
+    void revertChanges();
 };
 
 #endif // WASHINGEDIT_H

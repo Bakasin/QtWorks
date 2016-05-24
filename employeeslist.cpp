@@ -2,7 +2,7 @@
 
 EmployeesList::EmployeesList(QSqlRelationalTableModel* rModel, QWidget *parent) : QWidget(parent) {
     model = rModel;
-    model->setEditStrategy(QSqlTableModel::OnManualSubmit);
+    model->setEditStrategy(QSqlTableModel::OnFieldChange);
     model->setHeaderData(0, Qt::Horizontal, tr("ID"));
     model->setHeaderData(1, Qt::Horizontal, tr("Фамилия"));
     model->setHeaderData(2, Qt::Horizontal, tr("Имя"));
@@ -23,7 +23,7 @@ EmployeesList::EmployeesList(QSqlRelationalTableModel* rModel, QWidget *parent) 
     qview = new QTableView(this);
     qview->setModel(model);
     qview->setUpdatesEnabled(true);
-    qview->setEditTriggers(QAbstractItemView::CurrentChanged);
+    qview->setEditTriggers(QAbstractItemView::NoEditTriggers);
     qview->setSelectionBehavior(QAbstractItemView::SelectRows);
     qview->resizeColumnsToContents();
     qview->hideColumn(0);    
@@ -31,26 +31,34 @@ EmployeesList::EmployeesList(QSqlRelationalTableModel* rModel, QWidget *parent) 
     QLabel* qlbl = new QLabel(tr("Список"), this);
 
     QPushButton* addbtn = new QPushButton(tr("Добавить"), this);
-    QPushButton* edtbtn = new QPushButton(tr("Редактировать"), this);
-    QPushButton* savebtn = new QPushButton(tr("Сохранить"), this);
+    QPushButton* edtEqpBtn = new QPushButton(tr("Карточка СИЗ"), this);
+    QPushButton* edtWshBtn = new QPushButton(tr("Карточка МС"), this);
     QPushButton* delbtn = new QPushButton(tr("Удалить"), this);
-    QPushButton* reportbtn = new QPushButton(tr("Отчет"), this);
+    QPushButton* eqpReportbtn = new QPushButton(tr("Отчет СИЗ"), this);
+    QPushButton* wshReportbtn = new QPushButton(tr("Отчет МС"), this);
+
+    rowEdtbtn = new QPushButton(tr("Редактировать"), this);
+    rowEdtbtn->setCheckable(true);
+    connect(rowEdtbtn, SIGNAL(clicked(bool)), SLOT(setRowEditableSlot()));
 
     connect(addbtn, SIGNAL(clicked(bool)), SLOT(rowAddSlot()));
-    connect(edtbtn, SIGNAL(clicked(bool)), SLOT(rowEdtSlot()));
-    connect(savebtn, SIGNAL(clicked(bool)), SLOT(rowSaveSlot()));
+    connect(edtEqpBtn, SIGNAL(clicked(bool)), SLOT(rowEdtEqpSlot()));
+    connect(edtWshBtn, SIGNAL(clicked(bool)), SLOT(rowEdtWshSlot()));
     connect(delbtn, SIGNAL(clicked(bool)), SLOT(rowDelSlot()));
-    connect(reportbtn, SIGNAL(clicked(bool)), SLOT(showReport()));
+    connect(eqpReportbtn, SIGNAL(clicked(bool)), SLOT(showEqpReport()));
+    connect(wshReportbtn, SIGNAL(clicked(bool)), SLOT(showWshReport()));
 
     QVBoxLayout* qvbxmain = new QVBoxLayout(this);
     QVBoxLayout* qvbx = new QVBoxLayout(this);
     QHBoxLayout* qhbx = new QHBoxLayout(this);
 
     qvbx->addWidget(addbtn);
-    qvbx->addWidget(edtbtn);
-    qvbx->addWidget(savebtn);
+    qvbx->addWidget(rowEdtbtn);
     qvbx->addWidget(delbtn);
-    qvbx->addWidget(reportbtn);
+    qvbx->addWidget(edtEqpBtn);
+    qvbx->addWidget(edtWshBtn);
+    qvbx->addWidget(eqpReportbtn);
+    qvbx->addWidget(wshReportbtn);
 
     qhbx->addWidget(qview);
     qhbx->addLayout(qvbx);
@@ -64,8 +72,12 @@ void EmployeesList::rowAddSlot() {
     model->insertRows(model->rowCount(), 1);
 }
 
-void EmployeesList::rowEdtSlot() {
-    emit edtrow(getCurrentEmployeeId());
+void EmployeesList::rowEdtEqpSlot() {
+    emit edtEqpRow(getCurrentEmployeeId());
+}
+
+void EmployeesList::rowEdtWshSlot() {
+    emit edtWshRow(getCurrentEmployeeId());
 }
 
 void EmployeesList::rowDelSlot() {
@@ -74,9 +86,11 @@ void EmployeesList::rowDelSlot() {
     }
 }
 
-void EmployeesList::rowSaveSlot() {
-    if (!model->submitAll()) {
-        qDebug() << "Employee insertion fail!\n" << model->database().lastError();
+void EmployeesList::setRowEditableSlot() {
+    if (rowEdtbtn->isChecked()) {
+        qview->setEditTriggers(QAbstractItemView::CurrentChanged);
+    } else {
+        qview->setEditTriggers(QAbstractItemView::NoEditTriggers);
     }
 }
 
@@ -92,6 +106,10 @@ void EmployeesList::selectChanges() {
     }
 }
 
-void EmployeesList::showReport() {
-    new EmployeesReport(model->database());
+void EmployeesList::showEqpReport() {
+    new EquipmentReport(model->database());
+}
+
+void EmployeesList::showWshReport() {
+    new WashingReport(model->database());
 }

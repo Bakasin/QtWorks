@@ -3,7 +3,8 @@
 
 #include <QtWidgets>
 #include <QtSql>
-#include "employeesreport.h"
+#include "equipmentreport.h"
+#include "washingreport.h"
 
 class EmployeesList : public QWidget {
     Q_OBJECT
@@ -14,20 +15,23 @@ public:
 private:
     QSqlRelationalTableModel* model;
     QTableView* qview;
+    QPushButton* rowEdtbtn;
 
     QString* getCurrentEmployeeId();
 
 signals:
-    void addrow();
-    void edtrow(QString*);
+    void edtEqpRow(QString*);
+    void edtWshRow(QString*);
     void delrow(QString*);
 
 private slots:
     void rowAddSlot();
-    void rowEdtSlot();
-    void rowSaveSlot();
+    void rowEdtEqpSlot();
+    void rowEdtWshSlot();
+    void setRowEditableSlot();
     void rowDelSlot();
-    void showReport();
+    void showEqpReport();
+    void showWshReport();
 
 public slots:
     void selectChanges();

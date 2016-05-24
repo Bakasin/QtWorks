@@ -6,6 +6,7 @@
 #include "failedconnectiondialog.h"
 #include "employeeslist.h"
 #include "employeeedit.h"
+#include "washingedit.h"
 
 class PersonalMain : public QMainWindow {
     Q_OBJECT
@@ -25,8 +26,8 @@ private:
     void checkDatabaseConnection(QSqlDatabase* base);
 
 private slots:
-    void addRow();
-    void edtRow(QString* str);
+    void edtEqpRow(QString* str);
+    void edtWshRow(QString* str);
 };
 
 #endif // PERSONALMAIN_H

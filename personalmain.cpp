@@ -16,8 +16,8 @@ PersonalMain::PersonalMain(QApplication* qapp, QWidget *parent) : QMainWindow(pa
     relModel->select();
 
     eList = new EmployeesList(relModel, this);
-    connect(eList, SIGNAL(addrow()), SLOT(addRow()));
-    connect(eList, SIGNAL(edtrow(QString*)), SLOT(edtRow(QString*)));
+    connect(eList, SIGNAL(edtEqpRow(QString*)), SLOT(edtEqpRow(QString*)));
+    connect(eList, SIGNAL(edtWshRow(QString*)), SLOT(edtWshRow(QString*)));
 
     qtab = new QTabWidget(this);
     qtab->setTabsClosable(true);
@@ -40,14 +40,14 @@ void PersonalMain::checkDatabaseConnection(QSqlDatabase *base) {
     }
 }
 
-void PersonalMain::addRow() {
-    EmployeeEdit* edit = new EmployeeEdit(&base, new QString(), qtab);
-    qtab->addTab(edit , "Новая запись");
+void PersonalMain::edtEqpRow(QString* str) {
+    EmployeeEdit* edit = new EmployeeEdit(&base, str, qtab);
+    qtab->addTab(new EmployeeEdit(&base, str, qtab), "Карточка СИЗ");
     connect(edit, SIGNAL(changesCommited()), eList, SLOT(selectChanges()));
 }
 
-void PersonalMain::edtRow(QString* str) {
-    EmployeeEdit* edit = new EmployeeEdit(&base, str, qtab);
-    qtab->addTab(new EmployeeEdit(&base, str, qtab), "Редактирование записи");
+void PersonalMain::edtWshRow(QString* str) {
+    WashingEdit* edit = new WashingEdit(&base, str, qtab);
+    qtab->addTab(new WashingEdit(&base, str, qtab), "Карточка МС");
     connect(edit, SIGNAL(changesCommited()), eList, SLOT(selectChanges()));
 }

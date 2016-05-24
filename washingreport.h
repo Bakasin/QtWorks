@@ -1,12 +1,19 @@
 #ifndef WASHINGREPORT_H
 #define WASHINGREPORT_H
 
-#include <QWidget>
+#include <QtWidgets>
+#include <QtSql>
 
-class WashingReport
-{
+class WashingReport : public QWidget {
+    Q_OBJECT
+
 public:
-    WashingReport();
+    explicit WashingReport(QSqlDatabase dbase, QWidget *parent = 0);
+
+private:
+    QSqlDatabase base;
+    QSqlQueryModel *qmodel;
+    QTableView *view;
 };
 
 #endif // WASHINGREPORT_H
